@@ -11,9 +11,6 @@ import java.util.regex.Matcher;
 import java.lang.Integer;
 import java.lang.NumberFormatException;
 
-
-  
-
 public class IPinSubnet {
 
   private static final String PATTERN = 
@@ -42,6 +39,7 @@ public class IPinSubnet {
   public static void main (String[] args) throws IOException{
     Scanner sc = null;
     PrintWriter pw = null;
+    String[] ip = new String [3];
     
     try {
       sc = new Scanner(new BufferedReader(new FileReader ("DATA2.txt")));
@@ -50,21 +48,17 @@ public class IPinSubnet {
       while (sc.hasNext())
       {
         //String[] ip = sc.next().split(" ");
-        String[] ip = new String [3];
-        ip[0] = sc.next();
-        ip[1] = sc.next();
-        ip[2] = sc.next();
+        for (int i = 0; i < ip.length; i++)
+          ip[i] = sc.next();
         
-        if (!validate(ip[2])) {
-          System.out.println("InValid");
-        }
+        if (!validate(ip[2]))
+          pw.println("InValid");
         else if (ipToLong(ip[2]) < ipToLong(ip[0]) ||
             ipToLong(ip[2]) > ipToLong(ip[1]))
-          System.out.println("OutRange");
+          pw.println("OutRange");
         else
-          System.out.println("InRange");
+          pw.println("InRange");
       }
-      
     }
     finally
     {
