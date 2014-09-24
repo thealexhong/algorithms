@@ -47,7 +47,6 @@ public class BinaryTreeFromInOrderPostOrder {
         break;
       }
     }
-    
     root.left = buildTree(inorder, inStart, k - 1,
                           postorder, postStart, postStart + k - (inStart + 1));
     root.right = buildTree(inorder, k + 1, inEnd,
@@ -56,10 +55,10 @@ public class BinaryTreeFromInOrderPostOrder {
     return root;
   }
   
-  public static void breadth(TreeNode root)
+  public static ArrayList<Integer> breadthTree(TreeNode root)
   {
     if (root == null)
-      return;
+      return null;
     Queue<TreeNode> queue = new LinkedList<TreeNode>();
     ArrayList<Integer> breadth = new ArrayList<Integer>();
     queue.clear();
@@ -71,13 +70,7 @@ public class BinaryTreeFromInOrderPostOrder {
       if(node.left != null) queue.add(node.left);
       if(node.right != null) queue.add(node.right);
     }
-    for (int i = 0; i < breadth.size(); i++)
-    {
-      if (i == breadth.size() - 1)
-        System.out.println (breadth.get(i));
-      else
-        System.out.print(breadth.get(i) + ",");
-    }
+    return breadth;
   }
   
   public static void main (String[] args) throws IOException {
@@ -106,10 +99,19 @@ public class BinaryTreeFromInOrderPostOrder {
             postorder[i] = Integer.parseInt(postorderStr[i]);
           }
           catch (NumberFormatException e)
-          {          }
+          {}
         }
         TreeNode tn = buildTree(inorder, postorder);
-        breadth(tn);
+        ArrayList<Integer> breadth = breadthTree(tn);
+        if (breadth != null) {
+          for (int i = 0; i < breadth.size(); i++)
+          {
+            if (i == breadth.size() - 1)
+              pw.println (breadth.get(i));
+            else
+              pw.print(breadth.get(i) + ",");
+          }
+        }
       }
     }
     finally
